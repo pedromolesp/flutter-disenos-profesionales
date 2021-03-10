@@ -4,19 +4,24 @@ import 'package:provider/provider.dart';
 
 class SlideShow extends StatelessWidget {
   final List<Widget> slides;
-  SlideShow({this.slides});
+  final bool puntosArriba;
+  // final Color colorPrimario;
+  SlideShow({this.slides, this.puntosArriba = false});
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => new SliderModel(),
       child: Scaffold(
-        body: Center(
-            child: Column(
-          children: [
-            Expanded(child: _Slides(this.slides)),
-            _Dots(this.slides.length),
-          ],
-        )),
+        body: SafeArea(
+          child: Center(
+              child: Column(
+            children: [
+              if (puntosArriba) _Dots(slides.length),
+              Expanded(child: _Slides(this.slides)),
+              if (!puntosArriba) _Dots(slides.length),
+            ],
+          )),
+        ),
       ),
     );
   }
@@ -30,16 +35,12 @@ class _Dots extends StatelessWidget {
   Widget build(BuildContext context) {
     children = new List<Widget>();
 
-    for (var i = 0; i < dotsNumber; i++) {
-      children.add(_Dot(i));
-    }
-
     return Container(
       width: double.infinity,
       height: 70,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: children,
+        children: List.generate(dotsNumber, (index) => _Dot(index)),
       ),
     );
   }
