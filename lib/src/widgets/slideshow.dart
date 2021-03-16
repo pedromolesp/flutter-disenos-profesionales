@@ -57,6 +57,7 @@ class _CrearEstructuraSlideShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool varr = false;
     return Column(
       children: [
         if (puntosArriba) _Dots(slides.length),
