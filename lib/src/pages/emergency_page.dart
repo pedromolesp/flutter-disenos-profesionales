@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:disenos/src/widgets/boton_gordo.dart';
 import 'package:disenos/src/widgets/headers.dart';
 import 'package:flutter/material.dart';
@@ -43,12 +44,16 @@ class EmergencyPage extends StatelessWidget {
     ];
 
     List<Widget> botonesGordos = items
-        .map((e) => new BotonGordo(
-              color1: e.color1,
-              color2: e.color2,
-              icon: e.icon,
-              onPress: () => print("bt"),
-              texto: e.texto,
+        .map((e) => FadeInLeft(
+              duration: Duration(milliseconds: 650),
+              delay: Duration(milliseconds: 100),
+              child: new BotonGordo(
+                color1: e.color1,
+                color2: e.color2,
+                icon: e.icon,
+                onPress: () => print("bt"),
+                texto: e.texto,
+              ),
             ))
         .toList();
     return Scaffold(
@@ -127,7 +132,7 @@ class PageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconHeader(
       icon: FontAwesomeIcons.plusCircle,
-      subtitulo: "Has soilicitado",
+      subtitulo: "Has solicitado",
       titulo: "Asistencia Médica",
       color1: Color(0xff526bf6),
       color2: Color(0xff67acf2),
