@@ -1,6 +1,8 @@
 import 'package:disenos/src/routes/routes.dart';
+import 'package:disenos/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LauncherPage extends StatelessWidget {
   @override
@@ -47,6 +49,7 @@ class _ListaOpciones extends StatelessWidget {
 class _MenuPrincipal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
     return Drawer(
       child: Container(
           child: Column(
@@ -66,13 +69,21 @@ class _MenuPrincipal extends StatelessWidget {
             ),
           ),
           Expanded(child: _ListaOpciones()),
-          ListTile(
-            leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
-            title: Text("Dark Mode"),
-            trailing: Switch.adaptive(
-              activeColor: Colors.blue,
-              value: true,
-              onChanged: (value) {},
+          SafeArea(
+            bottom: true,
+            left: false,
+            right: false,
+            top: false,
+            child: ListTile(
+              leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+              title: Text("Dark Mode"),
+              trailing: Switch.adaptive(
+                activeColor: Colors.blue,
+                value: appTheme.darkTheme,
+                onChanged: (value) {
+                  appTheme.darkTheme = value;
+                },
+              ),
             ),
           ),
           ListTile(
@@ -80,8 +91,10 @@ class _MenuPrincipal extends StatelessWidget {
             title: Text("Custom Theme"),
             trailing: Switch.adaptive(
               activeColor: Colors.blue,
-              value: true,
-              onChanged: (value) {},
+              value: appTheme.customTheme,
+              onChanged: (value) {
+                appTheme.customTheme = value;
+              },
             ),
           )
         ],
