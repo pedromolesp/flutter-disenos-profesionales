@@ -7,15 +7,16 @@ import 'package:provider/provider.dart';
 // import 'package:disenos/src/pages/animaciones_page.dart';
 
 void main() => runApp(
-    ChangeNotifierProvider(create: (_) => new ThemeChanger(), child: MyApp()));
+    ChangeNotifierProvider(create: (_) => new ThemeChanger(3), child: MyApp()));
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Diseños App',
-        theme: ThemeData.dark(),
+        theme: appTheme,
         home: LauncherPage());
   }
 }
